@@ -57,7 +57,7 @@ def monitor(ms):
                 rotate('b')
             else:
                 print('WARNING: new unknown orientation, rotating to normal mode!')
-                rotate('normal')
+                rotate('n')
 
 def rotate(d):
     ''' rotates the screen and the touchscreen device, including the offset '''
