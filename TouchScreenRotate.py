@@ -22,10 +22,13 @@ from threading  import Thread
 from time import sleep
 
 # Insert your touchscreen device here.
+# get it with `xinput --list`
 # If you don't have a touchscreen uncomment the 'exit(0)' below.
-touchdevice = ''
+touchdevices = ['']
+# Example for OneMix 1S (with the Stylus-Driver from Adya):
+#touchdevices = ['Goodix Capacitive TouchScreen', 'Goodix Active Stylus Pen Pen (0)']
 
-if touchdevice == '':
+if touchdevices == ['']:
     print('Please execute "xinput --list" to find out the name of your touchscreen pointer-device and enter it in this script!')
     print('(Or uncomment this if you don\'t have a touchscreen device)')
     exit(0)
@@ -36,7 +39,8 @@ offset = 0
 
 # === no changes necessary below here ===
 
-print('configured touchscreen device:\n' + touchdevice)
+print('configured touchscreen devices:\n')
+print(touchdevices)
 
 def monitor(ms):
     ''' monitors changes in screen orientation and rotates it accordingly '''
@@ -63,20 +67,24 @@ def rotate(d):
     ''' rotates the screen and the touchscreen device, including the offset '''
     if (d=='n' and offset==0) or (d=='l' and offset==90) or (d=='b' and offset==180) or (d== 'r'and offset==270):
         os.system('xrandr -o normal')
-        os.system('xinput set-prop "pointer:%s" --type=float "Coordinate Transformation Matrix" 0 0 0 0 0 0 0 0 0'
-                % touchdevice)
+        for device in touchdevices:
+            os.system('xinput set-prop "pointer:%s" --type=float "Coordinate Transformation Matrix" 0 0 0 0 0 0 0 0 0'
+                % device)
     elif (d=='r' and offset==0) or (d=='b'and offset==90) or (d=='l'and offset==180) or (d=='n'and offset==270):
         os.system('xrandr -o right')
-        os.system('xinput set-prop "pointer:%s" --type=float "Coordinate Transformation Matrix" 0 1 0 -1 0 1 0 0 1'
-                % touchdevice)
+        for device in touchdevices:
+            os.system('xinput set-prop "pointer:%s" --type=float "Coordinate Transformation Matrix" 0 1 0 -1 0 1 0 0 1'
+                % device)
     elif (d=='b' and offset==0) or (d=='r'and offset==90) or (d=='n'and offset==180) or (d=='l'and offset==270):
         os.system('xrandr -o inverted')
-        os.system('xinput set-prop "pointer:%s" --type=float "Coordinate Transformation Matrix" -1 0 1 0 -1 1 0  0 1'
-                % touchdevice)
+        for device in touchdevices:
+            os.system('xinput set-prop "pointer:%s" --type=float "Coordinate Transformation Matrix" -1 0 1 0 -1 1 0  0 1'
+                % device)
     elif (d=='l' and offset==0) or (d=='n'and offset==90) or (d=='r'and offset==180) or (d=='b'and offset==270):
         os.system('xrandr -o left')
-        os.system('xinput set-prop "pointer:%s" --type=float "Coordinate Transformation Matrix" 0 -1 1 1 0 0 0 0 1'
-                % touchdevice)
+        for device in touchdevices:
+            os.system('xinput set-prop "pointer:%s" --type=float "Coordinate Transformation Matrix" 0 -1 1 1 0 0 0 0 1'
+                % device)
     else:
         print('ERROR: Unknown rotation, please check if your configured offset is 0, 90, 180 or 270!')
         print('Bye.')
