@@ -1,5 +1,8 @@
 # TouchScreenRotate
-This Rotates your screen and touchscreen input device accdording to it's position sensor on (Ubuntu-)Linux.
+This Rotates your screen and touchscreen input device accdording to it's position sensor on Debian, Ubuntu and other Linux distros.
+
+It works on the X-Server and on Wayland with KDE. If you use something different this might be a template for your own adaptions to start with.
+Pull-requests are appreciated i.e. if you add Gnome-support for Wayland!
 
 ## set it up
 Please find out what the name of your touchscreen input device is. To do so execute
@@ -16,6 +19,6 @@ Finally I recommend you to autostart the script on system start.
 
 ## other hints
 
-I created this for my OneMix S1 pocket netbook.
+I initially created this for my OneMix S1 pocket netbook, it also works on my Lenovo Yoga and my Toshiba Portege.
 
 If you got here maybe you are looking for a driver for a Stylus for your device as well, I found this [Goodix Touchscreen driver from Adya](https://gitlab.com/AdyaAdya/goodix-touchscreen-linux-driver) that is working on my device, thanks for this, Adya!
